@@ -19,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		2C2B1EB82404EB0400432AF9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2C2B1EBA2404EBCE00432AF9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2C6D3D022404D3D500BD36AC /* FamPlan test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FamPlan test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C6D3D052404D3D500BD36AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C6D3D072404D3D500BD36AC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +48,7 @@
 		2C6D3CF92404D3D500BD36AC = {
 			isa = PBXGroup;
 			children = (
+				2C2B1EBA2404EBCE00432AF9 /* README.md */,
 				2C6D3D042404D3D500BD36AC /* FamPlan test */,
 				2C6D3D032404D3D500BD36AC /* Products */,
 				DCE3ED1AE51EAA0AFFF8E18F /* Pods */,
