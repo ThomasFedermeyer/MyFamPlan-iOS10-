@@ -7,17 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C2B1EB92404EB0400432AF9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C2B1EB82404EB0400432AF9 /* GoogleService-Info.plist */; };
 		2C6D3D062404D3D500BD36AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D3D052404D3D500BD36AC /* AppDelegate.swift */; };
 		2C6D3D082404D3D500BD36AC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D3D072404D3D500BD36AC /* ViewController.swift */; };
 		2C6D3D0B2404D3D500BD36AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C6D3D092404D3D500BD36AC /* Main.storyboard */; };
 		2C6D3D0E2404D3D500BD36AC /* FamPlan_test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D3D0C2404D3D500BD36AC /* FamPlan_test.xcdatamodeld */; };
 		2C6D3D102404D3D700BD36AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C6D3D0F2404D3D700BD36AC /* Assets.xcassets */; };
 		2C6D3D132404D3D700BD36AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C6D3D112404D3D700BD36AC /* LaunchScreen.storyboard */; };
-		2CEB66892404D5ED00CA5B79 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB66882404D5ED00CA5B79 /* GoogleService-Info.plist */; };
 		FFB8E0697F0DB684D2834021 /* libPods-FamPlan test.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BD3C301A5F5DE13D1F861C6 /* libPods-FamPlan test.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C2B1EB82404EB0400432AF9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C6D3D022404D3D500BD36AC /* FamPlan test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FamPlan test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C6D3D052404D3D500BD36AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C6D3D072404D3D500BD36AC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -26,7 +27,6 @@
 		2C6D3D0F2404D3D700BD36AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C6D3D122404D3D700BD36AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C6D3D142404D3D700BD36AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2CEB66882404D5ED00CA5B79 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../MyFamPlan/Final-MyFamPlan/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8034A96E648DEE684157E065 /* Pods-FamPlan test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamPlan test.release.xcconfig"; path = "Target Support Files/Pods-FamPlan test/Pods-FamPlan test.release.xcconfig"; sourceTree = "<group>"; };
 		8BD3C301A5F5DE13D1F861C6 /* libPods-FamPlan test.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FamPlan test.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F970B4DD82292E5A390F47F5 /* Pods-FamPlan test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamPlan test.debug.xcconfig"; path = "Target Support Files/Pods-FamPlan test/Pods-FamPlan test.debug.xcconfig"; sourceTree = "<group>"; };
@@ -65,6 +65,7 @@
 		2C6D3D042404D3D500BD36AC /* FamPlan test */ = {
 			isa = PBXGroup;
 			children = (
+				2C2B1EB82404EB0400432AF9 /* GoogleService-Info.plist */,
 				2C6D3D052404D3D500BD36AC /* AppDelegate.swift */,
 				2C6D3D072404D3D500BD36AC /* ViewController.swift */,
 				2C6D3D092404D3D500BD36AC /* Main.storyboard */,
@@ -72,7 +73,6 @@
 				2C6D3D112404D3D700BD36AC /* LaunchScreen.storyboard */,
 				2C6D3D142404D3D700BD36AC /* Info.plist */,
 				2C6D3D0C2404D3D500BD36AC /* FamPlan_test.xcdatamodeld */,
-				2CEB66882404D5ED00CA5B79 /* GoogleService-Info.plist */,
 			);
 			path = "FamPlan test";
 			sourceTree = "<group>";
@@ -155,7 +155,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C6D3D132404D3D700BD36AC /* LaunchScreen.storyboard in Resources */,
-				2CEB66892404D5ED00CA5B79 /* GoogleService-Info.plist in Resources */,
+				2C2B1EB92404EB0400432AF9 /* GoogleService-Info.plist in Resources */,
 				2C6D3D102404D3D700BD36AC /* Assets.xcassets in Resources */,
 				2C6D3D0B2404D3D500BD36AC /* Main.storyboard in Resources */,
 			);
