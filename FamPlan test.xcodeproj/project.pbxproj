@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,8 @@
 		2C6D3D0E2404D3D500BD36AC /* FamPlan_test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D3D0C2404D3D500BD36AC /* FamPlan_test.xcdatamodeld */; };
 		2C6D3D102404D3D700BD36AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C6D3D0F2404D3D700BD36AC /* Assets.xcassets */; };
 		2C6D3D132404D3D700BD36AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C6D3D112404D3D700BD36AC /* LaunchScreen.storyboard */; };
+		2CEB66892404D5ED00CA5B79 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB66882404D5ED00CA5B79 /* GoogleService-Info.plist */; };
+		FFB8E0697F0DB684D2834021 /* libPods-FamPlan test.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BD3C301A5F5DE13D1F861C6 /* libPods-FamPlan test.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,10 @@
 		2C6D3D0F2404D3D700BD36AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C6D3D122404D3D700BD36AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C6D3D142404D3D700BD36AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2CEB66882404D5ED00CA5B79 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../MyFamPlan/Final-MyFamPlan/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8034A96E648DEE684157E065 /* Pods-FamPlan test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamPlan test.release.xcconfig"; path = "Target Support Files/Pods-FamPlan test/Pods-FamPlan test.release.xcconfig"; sourceTree = "<group>"; };
+		8BD3C301A5F5DE13D1F861C6 /* libPods-FamPlan test.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FamPlan test.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F970B4DD82292E5A390F47F5 /* Pods-FamPlan test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamPlan test.debug.xcconfig"; path = "Target Support Files/Pods-FamPlan test/Pods-FamPlan test.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFB8E0697F0DB684D2834021 /* libPods-FamPlan test.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +49,8 @@
 			children = (
 				2C6D3D042404D3D500BD36AC /* FamPlan test */,
 				2C6D3D032404D3D500BD36AC /* Products */,
+				DCE3ED1AE51EAA0AFFF8E18F /* Pods */,
+				8BFB1E1994F63DCBBF77773D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,8 +72,26 @@
 				2C6D3D112404D3D700BD36AC /* LaunchScreen.storyboard */,
 				2C6D3D142404D3D700BD36AC /* Info.plist */,
 				2C6D3D0C2404D3D500BD36AC /* FamPlan_test.xcdatamodeld */,
+				2CEB66882404D5ED00CA5B79 /* GoogleService-Info.plist */,
 			);
 			path = "FamPlan test";
+			sourceTree = "<group>";
+		};
+		8BFB1E1994F63DCBBF77773D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8BD3C301A5F5DE13D1F861C6 /* libPods-FamPlan test.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DCE3ED1AE51EAA0AFFF8E18F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F970B4DD82292E5A390F47F5 /* Pods-FamPlan test.debug.xcconfig */,
+				8034A96E648DEE684157E065 /* Pods-FamPlan test.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +101,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2C6D3D172404D3D700BD36AC /* Build configuration list for PBXNativeTarget "FamPlan test" */;
 			buildPhases = (
+				C72D125D56426F7BE7B35E86 /* [CP] Check Pods Manifest.lock */,
 				2C6D3CFE2404D3D500BD36AC /* Sources */,
 				2C6D3CFF2404D3D500BD36AC /* Frameworks */,
 				2C6D3D002404D3D500BD36AC /* Resources */,
+				47502E21398C1A8E16D5EB21 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -126,12 +155,55 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C6D3D132404D3D700BD36AC /* LaunchScreen.storyboard in Resources */,
+				2CEB66892404D5ED00CA5B79 /* GoogleService-Info.plist in Resources */,
 				2C6D3D102404D3D700BD36AC /* Assets.xcassets in Resources */,
 				2C6D3D0B2404D3D500BD36AC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		47502E21398C1A8E16D5EB21 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FamPlan test/Pods-FamPlan test-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FamPlan test/Pods-FamPlan test-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FamPlan test/Pods-FamPlan test-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C72D125D56426F7BE7B35E86 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FamPlan test-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2C6D3CFE2404D3D500BD36AC /* Sources */ = {
@@ -217,7 +289,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -272,7 +344,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -284,15 +356,17 @@
 		};
 		2C6D3D182404D3D700BD36AC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F970B4DD82292E5A390F47F5 /* Pods-FamPlan test.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5D86A7LKZL;
 				INFOPLIST_FILE = "FamPlan test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eddiefed.FamPlan-test";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.conant.Final-MyFamPlan";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -301,15 +375,17 @@
 		};
 		2C6D3D192404D3D700BD36AC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8034A96E648DEE684157E065 /* Pods-FamPlan test.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5D86A7LKZL;
 				INFOPLIST_FILE = "FamPlan test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eddiefed.FamPlan-test";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.conant.Final-MyFamPlan";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
