@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-import GoogleSignIn
 
 class ViewController: UIViewController {
     
@@ -16,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var Nameinput: UITextField!
     @IBOutlet weak var ChoresToDo: UILabel!
     var name = ""
+    var WeeklyNumber = "NA"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,8 @@ class ViewController: UIViewController {
                             print(check)
                             if check == self.name{
                                 print("Name Exists")
-                                self.performSegue(withIdentifier: "ToMainScreen", sender: self)
+                                
+                            self.performSegue(withIdentifier: "ToMainScreen", sender: self)
                             }
                         }
             }
@@ -129,6 +130,10 @@ class ViewMainScreen: UIViewController {
     var FamilyName = ""
     var AccountName = ""
     var role = ""
+    var WeeklyNumber = 0
+    var ChoresCompleted  = 0
+    @IBOutlet weak var LableName: UILabel!
+    @IBOutlet weak var LableWeeklyPercent: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -136,6 +141,15 @@ class ViewMainScreen: UIViewController {
         print(FamilyName)
         print(AccountName)
         print("--End--")
+        LableName.text = AccountName
+        DisplayWeeklyPercent()
+                
+ 
+               
+        
+
+        
+        
     }
     
     
@@ -144,6 +158,29 @@ class ViewMainScreen: UIViewController {
     }
     
     
+    
+    func DisplayWeeklyPercent()  {
+        
+        let db = Firestore.firestore()
+                db.collection("Family").document(FamilyName).collection(AccountName).getDocuments() { (querySnapshot, err) in
+                    if let err = err {
+                        print("Error getting documents: \(err)")
+                    } else {
+                        for document in querySnapshot!.documents {
+                            self.role = document.get("Role") as! String
+                            print(self.role)
+                            if self.role == "Child"{
+                                self.LableWeeklyPercent.text = "%" + String(document.get("Chores-Completed") as! Int) + " / " + String(document.get("Weekly-Number") as! Int)
+                            }
+                            else if self.role == "Adult"{
+                                self.LableWeeklyPercent.text = "NA"
+                            }
+                        }
+                        
+                    }
+        }
+        
+    }
     @IBAction func ToChoreView(_ sender: Any) {
         
         let db = Firestore.firestore()
@@ -165,6 +202,8 @@ class ViewMainScreen: UIViewController {
                     }
         }
     }
+
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if role == "Child"{
@@ -227,21 +266,52 @@ class AdultChoreView: UIViewController {
         print("--End--")
     }
     
-    
     @IBAction func Exit(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func ToAddChore(_ sender: Any) {
+        performSegue(withIdentifier: "ToAddChores", sender: self)
+    }
     
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destVC : AddChores = segue.destination as! AddChores
+        destVC.modalPresentationStyle = .fullScreen
+        destVC.FamilyName = FamilyName
+        destVC.AccountName = AccountName
+        destVC.role = role
+    }
 }
 
 
 
 
 
-
+class AddChores: UIViewController {
+   
+   var FamilyName = ""
+   var AccountName = ""
+   var role = ""
+   var WeeklyNumber = 0
+   var ChoresCompleted  = 0
+   
+   override func viewDidLoad() {
+       super.viewDidLoad()
+       print("Testing --- Screen post")
+       print(FamilyName)
+       print(AccountName)
+       print("Add Chores")
+       print("--End--")
+   }
+    
+    
+    
+   @IBAction func Exit(_ sender: Any) {
+       dismiss(animated: true, completion: nil)
+   }
+    
+}
 
 
 
