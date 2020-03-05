@@ -295,6 +295,10 @@ class AddChores: UIViewController {
    var role = ""
    var WeeklyNumber = 0
    var ChoresCompleted  = 0
+   @IBOutlet weak var NameChoreInput: UITextField!
+   @IBOutlet weak var DateChoreInput: UITextField!
+   @IBOutlet weak var DescriptionChoreInput: UITextField!
+   @IBOutlet weak var AssignedChoreInput: UITextField!
    
    override func viewDidLoad() {
        super.viewDidLoad()
@@ -305,9 +309,33 @@ class AddChores: UIViewController {
        print("--End--")
    }
     
+    let db = Firestore.firestore()
+    
+    func AddData() {
+        let docData: [String: Any] = [
+            "Name": NameChoreInput.text!,
+            "Date": DateChoreInput.text!,
+            "Description": DescriptionChoreInput.text!,
+            "Assigned": AssignedChoreInput.text!
+            
+        ]
+        
+        // fix this part its wrong i just copied it
+        db.collection("data").document("one").setData(docData) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
+            }
+        }
+    }
     
     
    @IBAction func Exit(_ sender: Any) {
+    print(NameChoreInput.text)
+    print(DateChoreInput.text)
+    print(DescriptionChoreInput.text)
+    print(AssignedChoreInput.text)
        dismiss(animated: true, completion: nil)
    }
     
