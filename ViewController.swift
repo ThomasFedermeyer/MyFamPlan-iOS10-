@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ViewController: UIViewController {
+class Login: UIViewController {
     
     @IBOutlet weak var Familyinput: UITextField!
     @IBOutlet weak var Nameinput: UITextField!
@@ -181,6 +181,8 @@ class ViewMainScreen: UIViewController {
         }
         
     }
+    
+    
     @IBAction func ToChoreView(_ sender: Any) {
         
         let db = Firestore.firestore()
@@ -242,8 +244,6 @@ class ChildChoreView: UIViewController {
         print("--End--")
     }
     
-    
-    
     @IBAction func Exit(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -300,6 +300,10 @@ class AddChores: UIViewController {
    @IBOutlet weak var DescriptionChoreInput: UITextField!
    @IBOutlet weak var AssignedChoreInput: UITextField!
    
+    
+    
+    
+    
    override func viewDidLoad() {
        super.viewDidLoad()
        print("Testing --- Screen post")
@@ -312,16 +316,15 @@ class AddChores: UIViewController {
     let db = Firestore.firestore()
     
     func AddData() {
-        let docData: [String: Any] = [
+        
+        
+        // fix this part its wrong i just copied it
+        db.collection("Family").document(FamilyName).collection("Chores").document(NameChoreInput.text!).setData([
             "Name": NameChoreInput.text!,
             "Date": DateChoreInput.text!,
             "Description": DescriptionChoreInput.text!,
             "Assigned": AssignedChoreInput.text!
-            
-        ]
-        
-        // fix this part its wrong i just copied it
-        db.collection("data").document("one").setData(docData) { err in
+        ]) { err in
             if let err = err {
                 print("Error writing document: \(err)")
             } else {
@@ -332,10 +335,7 @@ class AddChores: UIViewController {
     
     
    @IBAction func Exit(_ sender: Any) {
-    print(NameChoreInput.text)
-    print(DateChoreInput.text)
-    print(DescriptionChoreInput.text)
-    print(AssignedChoreInput.text)
+       AddData()
        dismiss(animated: true, completion: nil)
    }
     
