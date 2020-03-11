@@ -9,6 +9,9 @@
 import UIKit
 import Firebase
 
+
+
+
 class Login: UIViewController {
     
     @IBOutlet weak var Familyinput: UITextField!
@@ -233,6 +236,8 @@ class ChildChoreView: UIViewController {
     var role = ""
     var FamilyName = ""
     var AccountName = ""
+    var Chores = [String]()
+    @IBOutlet weak var ChoreLable: UITextField!
     
     
     override func viewDidLoad() {
@@ -242,20 +247,133 @@ class ChildChoreView: UIViewController {
         print(AccountName)
         print(role)
         print("--End--")
+        Display()
     }
+    
+    func Display()  {
+        let db = Firestore.firestore()
+        db.collection("Family").document(FamilyName).collection(AccountName).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    self.Chores = document.get("Chores-Not-Completed") as! [String]
+                    print(self.Chores)
+                }
+                
+                var out = ""
+                for stuff in self.Chores{
+                    out += stuff
+                }
+                self.ChoreLable.text = out
+            }
+        }
+    }
+    
+    
+    
+    @IBAction func ViewChoreStuff(_ sender: Any) {
+        var test = false
+        for stuff in Chores{
+            if (ChoreLable.text == stuff){
+                test = true
+            }
+        }
+        if test {
+            self.performSegue(withIdentifier: "ToChoreDetails", sender: self)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destVC : ChoreDetail = segue.destination as! ChoreDetail
+        destVC.modalPresentationStyle = .fullScreen
+        destVC.FamilyName = FamilyName
+        destVC.AccountName = AccountName
+        destVC.ChoreName = ChoreLable.text!
+        
+    }
+    
+    
     
     @IBAction func Exit(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
     
-    
 }
+
+
+class ChoreDetail: UIViewController{
+    
+    var FamilyName = ""
+    var AccountName = ""
+    var ChoreName = ""
+    
+    
+    @IBOutlet weak var NameLable: UILabel!
+    
+    @IBOutlet weak var DetailLable: UILabel!
+    
+    @IBOutlet weak var DateLable: UILabel!
+    
+    @IBOutlet weak var CompletedLable: UILabel!
+    
+    
+    
+    override func viewDidLoad() {
+        print(ChoreName)
+        super.viewDidLoad()
+        
+        
+        
+        
+        let db = Firestore.firestore()
+        db.collection("Family").document(FamilyName).collection("Chores").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    if(document.get("Name") as! String == self.ChoreName){
+                        self.NameLable.text = self.ChoreName
+                        self.DateLable.text = document.get("Date") as! String
+                        self.DetailLable.text = document.get("Description") as! String
+                        if(document.get("Done") as! Bool){
+                            self.CompletedLable.text = "Done"
+                        }
+                        else{
+                            self.CompletedLable.text = "Work In Progress"
+                        }
+                    }
+                    
+                }
+                
+               
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+    
+    @IBAction func Exit(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+
+
 class AdultChoreView: UIViewController {
     var role = ""
     var FamilyName = ""
     var AccountName = ""
-    
+    var Chores = String()
+    @IBOutlet weak var ChoreList: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -264,6 +382,25 @@ class AdultChoreView: UIViewController {
         print(AccountName)
         print(role)
         print("--End--")
+        Display()
+    }
+    
+    func Display() {
+       
+        let db = Firestore.firestore()
+        db.collection("Family").document(FamilyName).collection("Chores").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    self.Chores += document.get("Name") as! String
+                    
+                }
+               
+                self.ChoreList.text = self.Chores
+
+            }
+        }
     }
     
     @IBAction func Exit(_ sender: Any) {
