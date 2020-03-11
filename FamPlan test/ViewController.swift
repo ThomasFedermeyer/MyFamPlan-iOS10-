@@ -8,17 +8,26 @@
 
 import UIKit
 import Firebase
-import GoogleSignIn
 
-class ViewController: UIViewController {
+
+
+
+class Login: UIViewController {
     
     @IBOutlet weak var Familyinput: UITextField!
     @IBOutlet weak var Nameinput: UITextField!
     @IBOutlet weak var ChoresToDo: UILabel!
     var name = ""
+    var WeeklyNumber = "NA"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+    }
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
         
     }
     
@@ -35,7 +44,8 @@ class ViewController: UIViewController {
                             print(check)
                             if check == self.name{
                                 print("Name Exists")
-                                self.performSegue(withIdentifier: "ToMainScreen", sender: self)
+                                
+                            self.performSegue(withIdentifier: "ToMainScreen", sender: self)
                             }
                         }
             }
@@ -128,7 +138,11 @@ class ViewMainScreen: UIViewController {
     
     var FamilyName = ""
     var AccountName = ""
-    
+    var role = ""
+    var WeeklyNumber = 0
+    var ChoresCompleted  = 0
+    @IBOutlet weak var LableName: UILabel!
+    @IBOutlet weak var LableWeeklyPercent: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -136,9 +150,46 @@ class ViewMainScreen: UIViewController {
         print(FamilyName)
         print(AccountName)
         print("--End--")
+        LableName.text = AccountName
+        DisplayWeeklyPercent()
+                
+        
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        
     }
     
     
+    @IBAction func Exit(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
+    func DisplayWeeklyPercent()  {
+        
+        let db = Firestore.firestore()
+                db.collection("Family").document(FamilyName).collection(AccountName).getDocuments() { (querySnapshot, err) in
+                    if let err = err {
+                        print("Error getting documents: \(err)")
+                    } else {
+                        for document in querySnapshot!.documents {
+                            self.role = document.get("Role") as! String
+                            print(self.role)
+                            if self.role == "Child"{
+                                self.LableWeeklyPercent.text = "%" + String(document.get("Chores-Completed") as! Int) + " / " + String(document.get("Weekly-Number") as! Int)
+                            }
+                            else if self.role == "Adult"{
+                                self.LableWeeklyPercent.text = "NA"
+                            }
+                        }
+                        
+                    }
+        }
+        
+    }
     
     
     @IBAction func ToChoreView(_ sender: Any) {
@@ -149,24 +200,50 @@ class ViewMainScreen: UIViewController {
                         print("Error getting documents: \(err)")
                     } else {
                         for document in querySnapshot!.documents {
-                            let role: String = document.get("Role") as! String
-                            print(role)
-                            if role == "Child"{
+                            self.role = document.get("Role") as! String
+                            print(self.role)
+                            if self.role == "Child"{
                                 self.performSegue(withIdentifier: "ToChildView", sender: self)
+                            }
+                            else if self.role == "Adult"{
+                                self.performSegue(withIdentifier: "ToAdultChoreView", sender: self)
                             }
                         }
                         
                     }
         }
     }
+
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if role == "Child"{
+            let destVC : ChildChoreView = segue.destination as! ChildChoreView
+            destVC.modalPresentationStyle = .fullScreen
+            destVC.FamilyName = FamilyName
+            destVC.AccountName = AccountName
+            destVC.role = role
+        }
+        
+        else if role == "Adult"{
+            let destVC : AdultChoreView = segue.destination as! AdultChoreView
+            destVC.modalPresentationStyle = .fullScreen
+            destVC.FamilyName = FamilyName
+            destVC.AccountName = AccountName
+            destVC.role = role
+        }
+        
+    }
     
 }
 
 
 class ChildChoreView: UIViewController {
-    
+    var role = ""
     var FamilyName = ""
     var AccountName = ""
+    var Chores = [String]()
+    @IBOutlet weak var ChoreLable: UITextField!
     
     
     override func viewDidLoad() {
@@ -174,19 +251,257 @@ class ChildChoreView: UIViewController {
         print("Testing --- Screen post")
         print(FamilyName)
         print(AccountName)
+        print(role)
         print("--End--")
+        Display()
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        
+    }
+    
+    func Display()  {
+        let db = Firestore.firestore()
+        db.collection("Family").document(FamilyName).collection(AccountName).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    self.Chores = document.get("Chores-Not-Completed") as! [String]
+                    print(self.Chores)
+                }
+                
+                var out = ""
+                for stuff in self.Chores{
+                    out += stuff
+                }
+                self.ChoreLable.text = out
+            }
+        }
     }
     
     
     
+    @IBAction func ViewChoreStuff(_ sender: Any) {
+        var test = false
+        for stuff in Chores{
+            if (ChoreLable.text == stuff){
+                test = true
+            }
+        }
+        if test {
+            self.performSegue(withIdentifier: "ToChoreDetails", sender: self)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destVC : ChoreDetail = segue.destination as! ChoreDetail
+        destVC.modalPresentationStyle = .fullScreen
+        destVC.FamilyName = FamilyName
+        destVC.AccountName = AccountName
+        destVC.ChoreName = ChoreLable.text!
+        
+    }
     
     
+    
+    @IBAction func Exit(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+}
+
+
+class ChoreDetail: UIViewController{
+    
+    var FamilyName = ""
+    var AccountName = ""
+    var ChoreName = ""
+    
+    
+    @IBOutlet weak var NameLable: UILabel!
+    
+    @IBOutlet weak var DetailLable: UILabel!
+    
+    @IBOutlet weak var DateLable: UILabel!
+    
+    @IBOutlet weak var CompletedLable: UILabel!
+    
+    
+    
+    override func viewDidLoad() {
+        print(ChoreName)
+        super.viewDidLoad()
+        
+        
+        
+        
+        let db = Firestore.firestore()
+        db.collection("Family").document(FamilyName).collection("Chores").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    if(document.get("Name") as! String == self.ChoreName){
+                        self.NameLable.text = self.ChoreName
+                        self.DateLable.text = document.get("Date") as! String
+                        self.DetailLable.text = document.get("Description") as! String
+                        if(document.get("Done") as! Bool){
+                            self.CompletedLable.text = "Done"
+                        }
+                        else{
+                            self.CompletedLable.text = "Work In Progress"
+                        }
+                    }
+                    
+                }
+                
+               
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        
+    }
+    
+    @IBAction func Exit(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+
+
+class AdultChoreView: UIViewController {
+    var role = ""
+    var FamilyName = ""
+    var AccountName = ""
+    var Chores = String()
+    @IBOutlet weak var ChoreList: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("Testing --- Screen post")
+        print(FamilyName)
+        print(AccountName)
+        print(role)
+        print("--End--")
+        Display()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        
+    }
+    
+    func Display() {
+       
+        let db = Firestore.firestore()
+        db.collection("Family").document(FamilyName).collection("Chores").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    self.Chores += document.get("Name") as! String
+                    
+                }
+               
+                self.ChoreList.text = self.Chores
+
+            }
+        }
+    }
+    
+    @IBAction func Exit(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func ToAddChore(_ sender: Any) {
+        performSegue(withIdentifier: "ToAddChores", sender: self)
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destVC : AddChores = segue.destination as! AddChores
+        destVC.modalPresentationStyle = .fullScreen
+        destVC.FamilyName = FamilyName
+        destVC.AccountName = AccountName
+        destVC.role = role
+    }
 }
 
 
 
 
 
+class AddChores: UIViewController {
+   
+   var FamilyName = ""
+   var AccountName = ""
+   var role = ""
+   var WeeklyNumber = 0
+   var ChoresCompleted  = 0
+   @IBOutlet weak var NameChoreInput: UITextField!
+   @IBOutlet weak var DateChoreInput: UITextField!
+   @IBOutlet weak var DescriptionChoreInput: UITextField!
+   @IBOutlet weak var AssignedChoreInput: UITextField!
+   
+    
+    
+    
+    
+   override func viewDidLoad() {
+       super.viewDidLoad()
+       print("Testing --- Screen post")
+       print(FamilyName)
+       print(AccountName)
+       print("Add Chores")
+       print("--End--")
+   }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        
+    }
+    
+    let db = Firestore.firestore()
+    
+    func AddData() {
+        
+        
+        // fix this part its wrong i just copied it
+        db.collection("Family").document(FamilyName).collection("Chores").document(NameChoreInput.text!).setData([
+            "Name": NameChoreInput.text!,
+            "Date": DateChoreInput.text!,
+            "Description": DescriptionChoreInput.text!,
+            "Assigned": AssignedChoreInput.text!
+        ]) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
+            }
+        }
+    }
+    
+    
+   @IBAction func Exit(_ sender: Any) {
+       AddData()
+       dismiss(animated: true, completion: nil)
+   }
+    
+}
 
 
 
