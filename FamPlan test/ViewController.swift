@@ -452,6 +452,7 @@ class AddChores: UIViewController {
    var role = ""
    var WeeklyNumber = 0
    var ChoresCompleted  = 0
+   var kids = [String]()
    @IBOutlet weak var NameChoreInput: UITextField!
    @IBOutlet weak var DateChoreInput: UITextField!
    @IBOutlet weak var DescriptionChoreInput: UITextField!
@@ -475,29 +476,65 @@ class AddChores: UIViewController {
         
     }
     
-    let db = Firestore.firestore()
+    
+    
+    
+    
+    @IBAction func AddBTN(_ sender: Any) {
+        print("NDIDSIDSIUDGSI")
+        AddData()
+        
+    }
+    
+    
     
     func AddData() {
-        
-        
-        // fix this part its wrong i just copied it
-        db.collection("Family").document(FamilyName).collection("Chores").document(NameChoreInput.text!).setData([
-            "Name": NameChoreInput.text!,
-            "Date": DateChoreInput.text!,
-            "Description": DescriptionChoreInput.text!,
-            "Assigned": AssignedChoreInput.text!
-        ]) { err in
-            if let err = err {
-                print("Error writing document: \(err)")
-            } else {
-                print("Document successfully written!")
+        let db = Firestore.firestore()
+        db.collection("Family").getDocuments() { (querySnapshot, err) in
+        if let err = err {
+            print("Error getting documents: \(err)")
+        } else {
+            for document in querySnapshot!.documents {
+                if document.get("Name") as! String == self.FamilyName {
+                    self.kids = document.get("kids") as! [String]
+                    print(self.kids)
+                    for kid in self.kids{
+                    print(kid)
+                        print(self.AssignedChoreInput.text!)
+                        if kid == self.AssignedChoreInput.text! {
+                        db.collection("Family").document(self.FamilyName).collection("Chores").document(self.NameChoreInput.text!).setData([
+                            "Name": self.NameChoreInput.text!,
+                            "Date": self.DateChoreInput.text!,
+                            "Description": self.DescriptionChoreInput.text!,
+                            "Assigned": self.AssignedChoreInput.text!,
+                            "Done": false
+                        ]) { err in
+                            if let err = err {
+                                print("Error writing document: \(err)")
+                            } else {
+                                print("Document successfully written!")
+                            }
+                        }
+                            let Chores = db.collection("Family").document(self.FamilyName).collection(kid).document("Info")
+                            Chores.updateData([
+                                "Chores-Not-Completed": FieldValue.arrayUnion([self.NameChoreInput.text!])
+                            ])
+                }
+                        
             }
+                   
+        }
+        }
+        
+    }
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
     
+    
+    
    @IBAction func Exit(_ sender: Any) {
-       AddData()
        dismiss(animated: true, completion: nil)
    }
     
